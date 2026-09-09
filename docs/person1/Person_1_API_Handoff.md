@@ -23,7 +23,7 @@ DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/migration_saf
 
 ## API contract
 
-The endpoints are documented in the existing `docs/Person_2_API_Examples.md`. The frontend expects the response fields to remain stable, especially finding fields and graph node/edge IDs.
+The endpoints are documented in `docs/person2/Person_2_API_Examples.md`. The frontend expects the response fields to remain stable, especially finding fields and graph node/edge IDs.
 
 ## Scoring
 

@@ -89,7 +89,9 @@ The master document specifies React, FastAPI, `sqlglot`, PostgreSQL, and React F
 dbms_project/
 ├── README.md
 ├── docs/
-│   └── DBMS_Project_Phases.docx
+│   ├── architecture/
+│   ├── person1/
+│   └── person2/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py
@@ -202,7 +204,7 @@ Document the exact numeric mapping in code and tests so scores are reproducible.
 
 ## Phased implementation and ownership
 
-The detailed, person-by-person execution plan is in [DBMS Project Phases](docs/DBMS_Project_Phases.docx). At a high level:
+The detailed, person-by-person execution plan is in [DBMS Project Phases](docs/architecture/DBMS_Project_Phases.docx). The owner-specific plans are [Person 1](docs/person1/Person_1_Implementation_Plan.md) and [Person 2](docs/person2/Person_2_Implementation_Plan.md). At a high level:
 
 | Phase | Person 1 | Person 2 | Shared checkpoint |
 |---|---|---|---|

@@ -26,7 +26,7 @@ No contract-breaking changes were needed.
 
 ## Evidence
 
-See `docs/Person_1_API_Handoff.md` and the passing backend test suite.
+See `docs/person1/Person_1_API_Handoff.md` and the passing backend test suite.
 
 ## Sign-off status
 

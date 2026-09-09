@@ -36,7 +36,7 @@ The following endpoints and response fields are already consumed by the frontend
 | `GET /stats` | Return analysis count, average score, and critical count |
 | `GET /graph/{id}` | Return graph nodes and edges for one saved migration |
 
-Each finding must retain `operation`, `affected_object`, `risk_type`, `severity`, `explanation`, `impact`, `alternative`, and `line_number`. Do not rename these fields without updating `docs/Person_2_API_Examples.md` and the frontend API client.
+Each finding must retain `operation`, `affected_object`, `risk_type`, `severity`, `explanation`, `impact`, `alternative`, and `line_number`. Do not rename these fields without updating `docs/person2/Person_2_API_Examples.md` and the frontend API client.
 
 ## 3 Phased work plan
 
@@ -112,7 +112,7 @@ Each finding must retain `operation`, `affected_object`, `risk_type`, `severity`
 
 - Update `README.md` with PostgreSQL setup and environment steps.
 - Add schema/table descriptions and a simple ER diagram under `docs/`.
-- Update `docs/Person_2_API_Examples.md` if any response details changed.
+- Update `docs/person2/Person_2_API_Examples.md` if any response details changed.
 - Record the final test commands and results.
 - Explain the score formula and risk catalog.
 - Provide Person 2 with the final database/API handoff note.
