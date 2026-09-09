@@ -27,7 +27,7 @@ export const api = {
     const form = new FormData()
     form.append('file', file)
     form.append('title', title)
-    return request('/analyze', { method: 'POST', body: form })
+    return request('/analyze-file', { method: 'POST', body: form })
   },
   history: (query = '') => request(`/history${query ? `?${query}` : ''}`),
   historyItem: (id) => request(`/history/${id}`),

@@ -1,0 +1,88 @@
+RISK_CATALOG = {
+    'DROP_TABLE': {
+        'risk_type': 'DATA_LOSS', 'severity': 'CRITICAL',
+        'explanation': 'Dropping a table permanently removes its stored data.',
+        'impact': 'All rows and dependent application queries may be lost.',
+        'alternative': 'Back up the table, disable usage, and drop it in a later migration.',
+        'relationships': [('AFFECTS', 'TABLE'), ('MAY_CAUSE', 'DATA_LOSS'), ('HAS_SEVERITY', 'CRITICAL'), ('HAS_ALTERNATIVE', 'BACKUP_BEFORE_DROP')],
+    },
+    'DROP_COLUMN': {
+        'risk_type': 'DATA_LOSS', 'severity': 'CRITICAL',
+        'explanation': 'Dropping the column permanently removes stored values.',
+        'impact': 'Existing data and application queries may be affected.',
+        'alternative': 'Deprecate the column, back it up, and remove it later.',
+        'relationships': [('AFFECTS', 'COLUMN'), ('MAY_CAUSE', 'DATA_LOSS'), ('HAS_SEVERITY', 'CRITICAL'), ('HAS_ALTERNATIVE', 'DEPRECATE_BEFORE_DROP')],
+    },
+    'TRUNCATE_TABLE': {
+        'risk_type': 'DATA_LOSS', 'severity': 'CRITICAL',
+        'explanation': 'TRUNCATE removes every row from the target table.',
+        'impact': 'The complete table contents may be lost immediately.',
+        'alternative': 'Back up the table and require explicit approval before truncating.',
+        'relationships': [('AFFECTS', 'TABLE'), ('MAY_CAUSE', 'DATA_LOSS'), ('HAS_SEVERITY', 'CRITICAL'), ('HAS_ALTERNATIVE', 'BACKUP_AND_APPROVE')],
+    },
+    'DELETE_WITHOUT_WHERE': {
+        'risk_type': 'FULL_TABLE_DELETION', 'severity': 'CRITICAL',
+        'explanation': 'DELETE without a WHERE clause affects every row in the table.',
+        'impact': 'All records could be deleted unintentionally.',
+        'alternative': 'Add a WHERE clause and preview the affected rows first.',
+        'relationships': [('AFFECTS', 'TABLE'), ('MAY_CAUSE', 'FULL_TABLE_DELETION'), ('HAS_SEVERITY', 'CRITICAL'), ('HAS_ALTERNATIVE', 'ADD_WHERE_AND_PREVIEW')],
+    },
+    'UPDATE_WITHOUT_WHERE': {
+        'risk_type': 'MASS_UPDATE', 'severity': 'HIGH',
+        'explanation': 'UPDATE without a WHERE clause changes every row in the table.',
+        'impact': 'All records could be modified unintentionally.',
+        'alternative': 'Add a condition, preview affected rows, and define a rollback plan.',
+        'relationships': [('AFFECTS', 'TABLE'), ('MAY_CAUSE', 'MASS_UPDATE'), ('HAS_SEVERITY', 'HIGH'), ('HAS_ALTERNATIVE', 'ADD_WHERE_AND_ROLLBACK')],
+    },
+    'ALTER_COLUMN_TYPE': {
+        'risk_type': 'TYPE_CHANGE', 'severity': 'HIGH',
+        'explanation': 'Changing a column type can fail conversion or hold locks during deployment.',
+        'impact': 'Existing values may not convert and application writes may be blocked.',
+        'alternative': 'Add a new column, backfill in batches, validate, and switch gradually.',
+        'relationships': [('AFFECTS', 'COLUMN'), ('MAY_CAUSE', 'TYPE_CHANGE'), ('HAS_SEVERITY', 'HIGH'), ('HAS_ALTERNATIVE', 'BACKFILL_IN_BATCHES')],
+    },
+    'RENAME_COLUMN': {
+        'risk_type': 'COMPATIBILITY_BREAK', 'severity': 'HIGH',
+        'explanation': 'Renaming a column can break application queries that still use the old name.',
+        'impact': 'Old application versions may fail after deployment.',
+        'alternative': 'Add a new column and migrate callers gradually.',
+        'relationships': [('AFFECTS', 'COLUMN'), ('MAY_CAUSE', 'COMPATIBILITY_BREAK'), ('HAS_SEVERITY', 'HIGH'), ('HAS_ALTERNATIVE', 'GRADUAL_COLUMN_MIGRATION')],
+    },
+    'ADD_NOT_NULL': {
+        'risk_type': 'DEPLOYMENT_FAILURE', 'severity': 'HIGH',
+        'explanation': 'Applying NOT NULL to existing data without a default or backfill can fail.',
+        'impact': 'The migration may be rejected when existing rows contain null values.',
+        'alternative': 'Add the column as nullable, backfill values, then apply NOT NULL.',
+        'relationships': [('AFFECTS', 'COLUMN'), ('MAY_CAUSE', 'DEPLOYMENT_FAILURE'), ('HAS_SEVERITY', 'HIGH'), ('HAS_ALTERNATIVE', 'BACKFILL_THEN_CONSTRAIN')],
+    },
+    'ADD_UNIQUE': {
+        'risk_type': 'CONSTRAINT_FAILURE', 'severity': 'MEDIUM_HIGH',
+        'explanation': 'A unique constraint can fail when duplicate values already exist.',
+        'impact': 'Deployment may fail and the constraint will not be created.',
+        'alternative': 'Detect and resolve duplicates before adding the constraint.',
+        'relationships': [('AFFECTS', 'CONSTRAINT'), ('MAY_CAUSE', 'CONSTRAINT_FAILURE'), ('HAS_SEVERITY', 'MEDIUM_HIGH'), ('HAS_ALTERNATIVE', 'CHECK_DUPLICATES_FIRST')],
+    },
+    'ADD_FOREIGN_KEY': {
+        'risk_type': 'REFERENTIAL_FAILURE', 'severity': 'MEDIUM_HIGH',
+        'explanation': 'A foreign key can fail when existing rows reference missing parent records.',
+        'impact': 'Orphan records or locking can block deployment.',
+        'alternative': 'Check orphan records first and validate the relationship before applying it.',
+        'relationships': [('AFFECTS', 'CONSTRAINT'), ('MAY_CAUSE', 'REFERENTIAL_FAILURE'), ('HAS_SEVERITY', 'MEDIUM_HIGH'), ('HAS_ALTERNATIVE', 'CHECK_ORPHANS_FIRST')],
+    },
+    'CREATE_INDEX': {
+        'risk_type': 'DEPLOYMENT_LOCK', 'severity': 'MEDIUM',
+        'explanation': 'Creating an index can hold locks or slow deployment on a large table.',
+        'impact': 'Reads and writes may be delayed while the index is built.',
+        'alternative': 'Use concurrent or another non-blocking index option where supported.',
+        'relationships': [('AFFECTS', 'INDEX'), ('MAY_CAUSE', 'DEPLOYMENT_LOCK'), ('HAS_SEVERITY', 'MEDIUM'), ('HAS_ALTERNATIVE', 'CREATE_CONCURRENTLY')],
+    },
+    'DROP_INDEX': {
+        'risk_type': 'PERFORMANCE_DEGRADATION', 'severity': 'MEDIUM',
+        'explanation': 'Dropping an index can remove an access path used by important queries.',
+        'impact': 'Query performance may degrade after deployment.',
+        'alternative': 'Check index usage before removing it.',
+        'relationships': [('AFFECTS', 'INDEX'), ('MAY_CAUSE', 'PERFORMANCE_DEGRADATION'), ('HAS_SEVERITY', 'MEDIUM'), ('HAS_ALTERNATIVE', 'CHECK_INDEX_USAGE')],
+    },
+}
+
+SEVERITY_SCORE = {'LOW': 15, 'MEDIUM': 40, 'MEDIUM_HIGH': 58, 'HIGH': 65, 'CRITICAL': 90}

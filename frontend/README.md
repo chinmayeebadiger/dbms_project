@@ -14,4 +14,4 @@ The frontend runs at `http://localhost:5173`. The backend base URL is read from 
 
 ## Phase 1 boundary
 
-The screens currently use mock data for the report and summary states. Backend requests are defined in `src/services/api.js` but the real analysis flow will be connected in later phases.
+The Analyze screen is connected to the Phase 2-4 analyzer endpoints. The dashboard, history, and graph pages still use Phase 1 mock data until the persistence and final graph endpoints are completed.
