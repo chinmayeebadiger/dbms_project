@@ -6,11 +6,6 @@ The Database Migration Safety Platform is a medium-complexity database systems p
 
 The project is based on the attached course master document for **BCSE302L - Database Systems Review 1 and Review 2**. That document is the source of the academic scope, proposed technology stack, risk catalog, knowledge-graph model, and the named two-person work split. This README turns those requirements into an implementation-ready plan. It does not claim that code already exists: the repository currently contains only Git metadata, so the first phase creates the application foundation.
 
-Team:
-
-- Person 1: Chinmayee Badiger (24BAI0251)
-- Person 2: Shruti Agnihotri (24BCE2758)
-
 ## What the system should do
 
 1. Receive migration SQL from a text editor or `.sql` upload.
@@ -90,8 +85,9 @@ dbms_project/
 ├── README.md
 ├── docs/
 │   ├── architecture/
-│   ├── person1/
-│   └── person2/
+│   └── project/
+│       ├── Project_Implementation_Plan.md
+│       └── reference/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py
@@ -204,17 +200,16 @@ Document the exact numeric mapping in code and tests so scores are reproducible.
 
 ## Phased implementation and ownership
 
-The detailed, person-by-person execution plan is in [DBMS Project Phases](docs/architecture/DBMS_Project_Phases.docx). The owner-specific plans are [Person 1](docs/person1/Person_1_Implementation_Plan.md) and [Person 2](docs/person2/Person_2_Implementation_Plan.md). At a high level:
+The active implementation plan is [Project Implementation Plan](docs/project/Project_Implementation_Plan.md). The original course brief is preserved in [DBMS Project Phases](docs/architecture/DBMS_Project_Phases.docx). At a high level:
 
-| Phase | Person 1 | Person 2 | Shared checkpoint |
-|---|---|---|---|
-| 0. Agreement | Confirm scope, repo, environment | Confirm UI and parser assumptions | Freeze API and catalog |
-| 1. Foundation | FastAPI, models, DB schema, seed data | React shell, API client, UX wireframe | Both run the skeleton |
-| 2. Core analysis | Normalization, endpoint shell, scoring | `sqlglot` parser, signal extraction, matching | Sample JSON is stable |
-| 3. Product flow | Persistence, history APIs, error handling | Analyze screen and risk report | One complete analysis flow |
-| 4. Explainability | Graph storage and graph endpoint | Graph UI, dashboard, history UI | Findings and graph agree |
-| 5. Verification | Backend tests and fixtures | Frontend/integration tests and demo | Acceptance checklist passes |
-| 6. Delivery | README, setup, schema explanation | Screenshots, demo script, final polish | Review 2 package is ready |
+| Phase | Project work | Completion checkpoint |
+|---|---|---|
+| 1. Foundation | FastAPI, React shell, environment, API contract | Both application layers start |
+| 2. Core analysis | SQL normalization, `sqlglot`, signal extraction, risk matching, scoring | Structured findings are deterministic |
+| 3. Product flow | Analyze screen, report, API integration, validation | A migration can be analyzed in the browser |
+| 4. Persistence | PostgreSQL schema, seed catalog, SQLAlchemy storage, history APIs | Results survive retrieval and restart |
+| 5. Exploration | Dashboard, history filters, graph API, interactive graph | Reports and graph agree |
+| 6. Verification | Backend tests, frontend build, demo, documentation | Acceptance checklist passes |
 
 ## Setup target
 
