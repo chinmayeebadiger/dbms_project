@@ -32,4 +32,5 @@ export const api = {
   history: (query = '') => request(`/history${query ? `?${query}` : ''}`),
   historyItem: (id) => request(`/history/${id}`),
   graph: (id) => request(`/graph/${id}`),
+  stats: () => request('/stats'),
 }
